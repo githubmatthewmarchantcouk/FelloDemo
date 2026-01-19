@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>McKinstry Skips-8x8 Demo</title>
+    <title>McKinstry Skips - 8x8 Demo</title>
 
     <!-- External CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
@@ -129,29 +129,46 @@
         background: transparent;
       }
 
-      /* Drawer wrapper that actually controls the chat position */
+      /* Drawer wrapper that actually controls the chat position
+         CHANGED: now hides "all but the tab", so the tab is ALWAYS visible */
       .chat-drawer {
         position: fixed;
         top: 50%;
         right: 0;
-        transform: translateY(-50%) translateX(130px); /* hidden (adjust if needed) */
         z-index: 4000;
         transition: transform 200ms ease-in-out;
         will-change: transform;
+
+        /* Tab width is 26px, so keep that visible at all times */
+        transform: translateY(-50%) translateX(calc(100% - 26px));
       }
 
       /* Small visible tab so users know it's there */
       .chat-drawer-tab {
         position: absolute;
-        left: -26px;
+        left: 0; /* sits at the visible edge */
         top: 50%;
         transform: translateY(-50%);
         width: 26px;
         height: 120px;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.95);
         border: 1px solid rgba(0, 0, 0, 0.12);
         border-right: none;
         border-radius: 10px 0 0 10px;
+        z-index: 1;
+      }
+
+      /* Optional: add a little hint line on the tab */
+      .chat-drawer-tab::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 9px;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 44px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
       }
 
       /* Pop out when hovering near the right edge OR the drawer itself */
@@ -270,6 +287,7 @@
 
     <!-- Chat drawer wrapper (RIGHT, HALF WAY DOWN, SLIDES OUT ON HOVER) -->
     <div class="chat-drawer" aria-label="Chat drawer">
+      <!-- Tab is always visible now -->
       <div class="chat-drawer-tab" aria-hidden="true"></div>
 
       <!-- 8x8 Chat button container (the script will inject the widget here) -->
