@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>McKinstry Skips - 8x8 Demo</title>
+    <title>McKinstry Skips-8x8 Demo</title>
 
     <!-- External CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
@@ -36,7 +36,7 @@
         font-family: "Archivo", sans-serif;
       }
 
-      /* ---------- TOP NAV TEXT BAR ---------- */
+      /* ---------- TOP NAV TEXT BAR (CENTERED + EVEN SPACING) ---------- */
       .top-links {
         position: fixed;
         top: 0;
@@ -45,17 +45,43 @@
         z-index: 2500; /* above chat + image */
         padding: 10px 14px;
         background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .top-links nav {
+        max-width: 1400px;          /* keeps it looking nice on ultra-wide screens */
+        margin: 0 auto;
+      }
+
+      .top-links ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-evenly; /* spreads evenly across */
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap; /* wraps nicely on smaller screens */
+      }
+
+      .top-links li {
         color: #3a3a38;
         font-size: 14px;
         line-height: 1.2;
+        text-align: center;
         white-space: nowrap;
-        overflow-x: auto; /* allows scrolling if it doesn't fit */
-        -webkit-overflow-scrolling: touch;
       }
 
-      /* Optional: make it look link-like without being anchors */
-      .top-links span {
+      /* make them look like links (optional) */
+      .top-links a {
         color: #3a3a38;
+        text-decoration: none;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+
+      .top-links a:hover {
+        text-decoration: underline;
       }
 
       /* Single full-page image */
@@ -66,17 +92,35 @@
         background-color: #ffffff;
       }
 
+      /* Wrap main image so we can overlay picMiddle.png */
+      .image-wrap {
+        position: relative;
+        width: 100%;
+        margin-top: 58px; /* pushes content down so top bar doesn't cover it */
+      }
+
       .full-width-image {
         width: 100%;
         height: auto;
         display: block;
-        margin-top: 44px; /* pushes image down so top bar doesn't cover it */
       }
 
-      /* Chat button container sits on top of the image, below top links */
+      /* Overlay image centered on top of main image */
+      .middle-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1200;
+        max-width: 60%;   /* adjust as needed */
+        height: auto;
+        pointer-events: none; /* so it doesn't block clicks */
+      }
+
+      /* Chat button container sits below top links */
       #__8x8-chat-button-container-script_1493918123696e2dfbe10540.79726509 {
         position: fixed;
-        top: 52px; /* below the top-links bar */
+        top: 64px; /* below the top-links bar */
         right: 12px;
         z-index: 2000;
       }
@@ -169,22 +213,34 @@
   </head>
 
   <body>
-    <!-- TOP TEXT ACROSS THE PAGE -->
+    <!-- TOP TEXT ACROSS THE PAGE (CENTERED + EVENLY SPACED) -->
     <div class="top-links">
-      <span>
-        Home | About Us | MMR McKinstry Metal Recycling | Skip Hire | Waste
-        Services | Biomass | Contact Us | Certification | Waste Licences
-      </span>
+      <nav aria-label="Top navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">MMR McKinstry Metal Recycling</a></li>
+          <li><a href="#">Skip Hire</a></li>
+          <li><a href="#">Waste Services</a></li>
+          <li><a href="#">Biomass</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Certification</a></li>
+          <li><a href="#">Waste Licences</a></li>
+        </ul>
+      </nav>
     </div>
 
-    <!-- Chat button container (overlay on top of the single image) -->
+    <!-- Chat button container -->
     <div
       id="__8x8-chat-button-container-script_1493918123696e2dfbe10540.79726509"
     ></div>
 
-    <!-- Single Image -->
+    <!-- Single Image + middle overlay -->
     <div id="welcome-section2">
-      <img src="pic11.PNG" class="full-width-image" alt="Main Image" />
+      <div class="image-wrap">
+        <img src="pic11.PNG" class="full-width-image" alt="Main Image" />
+        <img src="picMiddle.png" class="middle-overlay" alt="Middle Overlay" />
+      </div>
     </div>
 
     <!-- 8x8 Chat loader -->
